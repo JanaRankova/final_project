@@ -3,7 +3,7 @@ __pycache__
 flask_env
 .env
 
-.sqlite
+*.sqlite
 
 .vscode
-.code-workspace
+*.code-workspace
