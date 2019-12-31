@@ -1,0 +1,29 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>List of Books</title>
+</head>
+<body>
+    <h1>
+        List of All Books in Our Database
+    </h1>
+    <table style="width:50%">
+        <tr>
+            <!--For text align CSS is needed, I'll just leave it here so I won't forget-->
+          <th {text-align: left;}>Book Name</th>
+          <th {text-align: left;}>Author</th>
+        </tr>
+    <ul>
+        {% for book in all_books %}
+                    <tr>
+                      <td>{{ book.name }}</td>
+                      <td>{{ book.author.name }}</td>
+                    </tr>
+                 
+        {% endfor %}
+    </ul>
+    </table>
+</body>
+</html>

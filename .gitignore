@@ -5,5 +5,7 @@ flask_env
 
 *.sqlite
 
+populate_db.py
+
 .vscode
 *.code-workspace

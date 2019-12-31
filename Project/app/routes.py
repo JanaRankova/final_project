@@ -3,12 +3,51 @@ from flask import current_app as app
 from flask_login import login_required, logout_user, current_user, login_user
 from . import loginManager
 from . import db
+#from .forms import RegistrationForm, LoginForm
 from .models import Book, Author, UsersBook, User
 
 @app.route('/')
 def index():
     return 'Hello There'
 
+@app.route('/list/')
+def list_of_books():
+    """Creates a list of all books in database. User can browse list and choose a book from it."""
+
+    return render_template('/list_of_all_books.html',
+    all_books = Book.query.all())
+
+# @app.route('/profile/<username>')
+# def filter_users():
+
+
+#     return render_template()
+
+@loginManager.user_loader
+def load_user(user_id):
+    """Loads user as a current_user."""
+
+    if user_id:
+        return User.query.get(user_id)
+
+    return None
+
+@app.errorhandler(404)
+def not_found(_):
+    """Creates own custom view for 404 error."""
+
+    return make_response(
+        render_template('/404.html'),
+        404
+    )
+
+@app.context_processor
+def inject_user():
+    """Inject data of current user into templates and forms."""
+
+    return dict(
+        user = current_user
+    )
 
 @app.route('/db')
 def populatedb():
@@ -64,12 +103,12 @@ def populatedb():
     #     db.session.commit()
 
 
-    john_doe = User.query.get(1)
+    # john_doe = User.query.get(1)
 
-    return '<br>'.join(list(map(
-        lambda book: '{}: {}'.format(users_book.book.name, users_book.rating),
-        john_doe.books
-    )))
+    # return '<br>'.join(list(map(
+    #     lambda book: '{}: {}'.format(users_book.book.name, users_book.rating),
+    #     john_doe.books
+    # )))
 
-    return 'done'
+    # return 'done'
 
