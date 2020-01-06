@@ -59,12 +59,13 @@ def register():
 
 @app.route('/login', methods= ('GET', 'POST'))
 def login():
-    """Log in for already existing user. Check if user and password 
+    """Log in for already existing user. Check if user and password
     match - redirect to user profile. Otherwise asks for new login."""
     form = LoginForm()
 
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.data['username']).first()
+
         if user is not None and check_password(form.data['password'], user.password):
             login_user(user, form.remember_me.data)
 

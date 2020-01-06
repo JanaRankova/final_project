@@ -6,4 +6,4 @@ def create_password(password):
 
 def check_password(password, hash):
     """Checks if hashed password matches with Users password and its hash."""
-    return check_password_hash(password, hash)
+    return check_password_hash(hash, password)
