@@ -2,9 +2,10 @@ from flask import  url_for, request, render_template, make_response, flash, redi
 from flask import current_app as app
 from flask_login import login_required, logout_user, current_user, login_user
 from . import loginManager
-from . import db
-#from .forms import RegistrationForm, LoginForm
-from .models import Book, Author, UsersBook, User
+from .auth import create_password, check_password
+from .forms import LoginForm, RegistrationForm
+from .models import db, Book, Author, UsersBook, User
+
 
 @app.route('/')
 def index():
@@ -17,11 +18,11 @@ def list_of_books():
     return render_template('/list_of_all_books.html',
     all_books = Book.query.all())
 
-# @app.route('/profile/<username>')
-# def filter_users():
+@app.route('/profile')
+def filter_users():
 
 
-#     return render_template()
+    return 'heya'
 
 @loginManager.user_loader
 def load_user(user_id):
@@ -32,6 +33,61 @@ def load_user(user_id):
 
     return None
 
+@app.route('/register', methods= ('GET', 'POST'))
+def register():
+    form = RegistrationForm()
+
+    if form.validate_on_submit():
+        existing_user = User.query.filter_by(username=form.data['username']).first()
+        if existing_user:
+            flash('User already exists. For loging in use our login page.')
+            return redirect(url_for('login'))
+        user = User(
+            username = form.data['username'],
+            password = create_password(form.password.data)
+        )
+
+        db.session.add(user)
+        db.session.commit()
+
+        login_user(user)
+
+        flash('Your account was created')
+        return redirect(url_for('filter_users'))
+    return render_template('/registration.html', form=form)
+
+
+@app.route('/login', methods= ('GET', 'POST'))
+def login():
+    """Log in for already existing user. Check if user and password 
+    match - redirect to user profile. Otherwise asks for new login."""
+    form = LoginForm()
+
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=form.data['username']).first()
+        if user is not None and check_password(form.data['password'], user.password):
+            login_user(user, form.remember_me.data)
+
+            flash('You have been logged in.')
+
+            return redirect(url_for('filter_users'))
+        else:
+            flash('Incorrect username or password. Please try again.')
+
+            return redirect(url_for('login'))
+
+    return render_template('/login.html', form=form)
+
+
+@app.route('/logout')
+def logout():
+    """Logs out current_user."""
+    def logout():
+        logout_user()
+    return redirect(url_for('list_of_books'))
+
+
+
 @app.errorhandler(404)
 def not_found(_):
     """Creates own custom view for 404 error."""
@@ -40,6 +96,14 @@ def not_found(_):
         render_template('/404.html'),
         404
     )
+
+@loginManager.user_loader
+def load_user(user_id):
+    """Holds info of user in current session."""
+    if user_id:
+        return User.query.get(int(user_id))
+
+    return None
 
 @app.context_processor
 def inject_user():
@@ -52,63 +116,6 @@ def inject_user():
 @app.route('/db')
 def populatedb():
     """Populates db with fake data."""
+### pass data here
 
-
-    # if False:
-    ####first create authors####
-
-        # john_smith = Author(name = 'John Smith')
-        # db.session.add(john_smith)
-        # db.session.commit()
-
-    ####create books and users#### cant i just simply use session.flush() between to make two separete sessions?
-    ####P.S.: append() is not working properly####
-
-        # a = db.session.query(Author).get(1)
-        # great_gatsby = Book(name = 'The Great Gatsby', author = a)
-        # hobit = Book(name = 'The Hobbit', author = a)
-        # godfather = Book(name = 'The GodFather', author = a)
-        # john_doe = User(username = 'John Doe', password = 'abc')
-        # jane_doe = User(username = 'Jane Doe', password = 'def')
-        # db.session.add(hobit)
-        # db.session.add(godfather)
-        # db.session.add(john_doe)
-        # db.session.add(jane_doe)
-        # db.session.commit()
-
-    ####create links between users and books####
-
-        # john = db.session.query(User).get(1)
-        # hobit = db.session.query(Book).get(2)
-        # john_hobit = UsersBook(
-        #     rating = 5.0,
-        #     status = 'read'
-        # )
-        # john_hobit.user = john
-        # john_hobit.book = hobit
-        # db.session.add(john_hobit)
-
-        # db.session.commit()
-
-    # if True:
-    #     john_doe = User.query.get(1)
-    #     great_gatsby = Book.query.get(3)
-
-    #     john_gatsby = UsersBook(rating = 1, status='read')
-    #     john_gatsby.user = john_doe
-    #     john_gatsby.book = great_gatsby
-
-    #     db.session.add(john_gatsby)
-
-    #     db.session.commit()
-
-
-    # john_doe = User.query.get(1)
-
-    # return '<br>'.join(list(map(
-    #     lambda book: '{}: {}'.format(users_book.book.name, users_book.rating),
-    #     john_doe.books
-    # )))
-
-    # return 'done'
 

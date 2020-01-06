@@ -33,7 +33,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(64), unique=True, nullable=False)
     password = db.Column(db.String(256), nullable=False)
 
-
+        
     def __repr__(self):
         return '<User {}>'.format(self.username)
 

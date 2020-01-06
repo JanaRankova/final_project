@@ -1,0 +1,44 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>LogIn</title>
+</head>
+<body>
+    <div>
+        <h1>Login</h1>
+        <form action="{{ url_for('login') }}" method="POST">
+            {{ form.hidden_tag() }}
+            <div>
+            {{ form.username.label }}
+            {{ form.username }}
+            {% for error in form.username.errors %}
+                <p class="error">
+                    {{ error }}
+                </p>
+            {% endfor %}
+            </div>
+            <div>
+                {{ form.password.label }}
+                {{ form.password }}
+                {% for error in form.password.errors %}
+                    <p class="error">
+                        {{ error }}
+                    </p>
+                {% endfor %}
+            </div>
+            <div>
+                {{ form.remember_me.label }}
+                {{ form.remember_me }}
+            </div>
+            <div>
+                {{ form.submit(class='button') }}
+            </div>
+        </form>
+        <p>
+            <!-- <a href="{{ url_for('register') }}">Create account</a> -->
+        </p>
+    </div>
+</body>
+</html>

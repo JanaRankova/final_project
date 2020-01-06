@@ -6,7 +6,7 @@ from flask_wtf.csrf import CSRFProtect
 
 db = SQLAlchemy()
 loginManager = LoginManager()
-csfr = CSRFProtect()
+csrf = CSRFProtect()
 
 def create_app():
     app = Flask(__name__, instance_relative_config=False)
