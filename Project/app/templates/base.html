@@ -1,0 +1,42 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% if title %}
+    <title>{{ title }}</title>
+    {% else %}
+    <title>Welcome to Book Enthusiast!</title>
+    {% endif %}
+    <style>
+        body {
+            font-size: 16px;
+            font-family: sans-serif;
+            padding: 40px;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    {% for message in get_flashed_messages() %}
+        <p>
+            {{ message }}
+        </p>
+    {% endfor %}
+    <div>BookEnthusiast: <a href="{{ url_for('index') }}">Home</a>
+    <a href="{{ url_for('list_of_books') }}">Books</a>
+    </div>
+    <hr>
+<header>
+    {% if current_user.is_authenticated %}
+    {{ current_user.username }}
+    <a href="{{ url_for('logout') }}">Sign out</a>
+    {% endif %}
+</header>
+{% block content %}
+
+{% endblock %}
+</body>
+</html>

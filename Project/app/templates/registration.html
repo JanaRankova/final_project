@@ -1,11 +1,5 @@
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Registration</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block content %}
     <div>
         <h1>
             Create an account
@@ -31,9 +25,12 @@
                 {% endfor %}
             </div>
             <div>
+                {{ form.password2.label }}
+                {{ form.password2 }}
+            </div>
+            <div>
                 {{ form.submit(class='button') }}
             </div>
         </form>
     </div>
-</body>
-</html>
+{% endblock %}
