@@ -17,6 +17,9 @@
         .error {
             color: red;
         }
+        th {
+            text-align: left;
+        }
     </style>
 </head>
 <body>
@@ -27,6 +30,7 @@
     {% endfor %}
     <div>BookEnthusiast: <a href="{{ url_for('index') }}">Home</a>
     <a href="{{ url_for('list_of_books') }}">Books</a>
+    <a href="{{ url_for('profile') }}">Profile</a>
     </div>
     <hr>
 <header>

@@ -16,20 +16,39 @@ def index():
 @login_required
 def list_of_books():
     """Creates a list of all books in database. User can browse list and choose a book from it."""
-
+    
     return render_template('/list_of_all_books.html',
     all_books = Book.query.all())
 
 
-@app.route('/profile')
+
+@app.route('/profile/')
 @login_required
 def profile():
+    
+    user_book_status = UsersBook.query.filter_by(user_id=current_user.id).all()
+    book_status = {}
+    for book in user_book_status:
+        book_status[book.book_id] = {
+            'book_status': book.status,
+            'book_rating': book.rating,
+        }
+    
+    read_books = []
+    reading_books = []
+
+    for book in user_book_status:
+        if book.status == 'read':
+            read_books.append(book)
+        else:
+            reading_books.append(book)
+
+    currently_reading = UsersBook.query.filter_by(user_id= current_user.id, status='reading').all() #toto som skusala vcera, je prakticky to iste, co reading_books
+    
+    return render_template('/profile.html', read_books=read_books, reading_books=reading_books, currently_reading=currently_reading)
 
 
-    return render_template('/profile.html')
-
-
-@app.route('/list/add-book', methods=('GET', 'POST'))
+@app.route('/list/add-book', methods=('GET', 'POST'))  #dont forget to unify names of func, temp etc.
 @login_required
 def add_a_book():
     """Enables adding new books into db to a user. Checks for duplicates."""
@@ -41,37 +60,40 @@ def add_a_book():
         if listed_book:
             flash('This book is already in our database.')
             return redirect(url_for('list_of_books'))
-        if existing_author:
-            new_book = Book(
+        if existing_author is None:
+            existing_author = Author(name= form.author.data)
+            db.session.add(existing_author)
+        print(form.data)
+        new_book = Book(
             name= form.name.data,
             author= existing_author,
-            synopsis= form.synopsis.data,
-            cover= form.cover.data
-            )
-            db.session.add(new_book)
-            db.session.commit()
-        else:
-            new_book = Book(
-                name= form.name.data,
-                author= form.author.data,
-                synopsis= form.synopsis.data,
-                cover= form.cover.data
-                #error = 'str' object has no attribute '_sa_instance_state'
-                #probably colission in file(form) vs str(db) input?
-            )
-            new_author = Author(
-                name= form.author.data
-            )
-
-            db.session.add(new_book)
-            db.session.add(new_author)
-            db.session.commit()
-        
+            synopsis= form.data['synopsis'],
+            #cover= form.cover.data
+        )
+        db.session.add(new_book)
+        db.session.commit()
         flash('Book has been added.')
         return redirect(url_for('list_of_books'))
     return render_template('/add_a_book.html', form=form)
 
-
+@app.route('/books_set_status_rating/<book_id>/<status>', defaults={'rating': None})
+@app.route('/books_set_status_rating/<book_id>/<status>/<rating>')
+@login_required
+def set_status(book_id, status, rating):
+    book_rating = UsersBook.query.filter_by(user_id= current_user.id, book_id= book_id).first()
+    if book_rating:
+        book_rating.status = status
+        book_rating.rating = rating
+    else:
+        new_rating= UsersBook(
+            user_id= current_user.id,
+            book_id= book_id,
+            status= status,
+            rating= rating
+        )
+        db.session.add(new_rating)
+    db.session.commit()
+    return redirect(url_for('profile'))
 
 @app.route('/register', methods= ('GET', 'POST'))
 def register():

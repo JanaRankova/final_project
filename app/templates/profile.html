@@ -2,5 +2,9 @@
 
 {% block content %}
     <h1>Hello, {{ current_user.username }}!</h1>
-
+    <ul>
+        {% for book in currently_reading %}
+            <li>{{ book.book_id }} {{ book.status }}</li>
+        {% endfor %}
+    </ul>
 {% endblock %}

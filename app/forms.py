@@ -23,5 +23,5 @@ class BookAdditionForm(FlaskForm):
     name=StringField('Title', validators=[DataRequired()])
     author=StringField('Author', validators=[DataRequired()])
     synopsis=TextAreaField('Synopsis', validators=[Optional(), Length(max=500)])
-    cover=FileField('Book Cover', validators=[Optional()])
+    #cover=FileField('Book Cover', validators=[Optional()])
     submit=SubmitField('Add This Book')
