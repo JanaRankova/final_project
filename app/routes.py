@@ -9,22 +9,13 @@ from .models import db, Book, Author, UsersBook, User
 
 @app.route('/')
 def index():
-    return render_template('/index.html')
+    return render_template('/index.html', title= 'Home')
 
 
 @app.route('/list/')
 @login_required
 def list_of_books():
     """Creates a list of all books in database. User can browse list and choose a book from it."""
-    
-    return render_template('/list_of_all_books.html',
-    all_books = Book.query.all())
-
-
-
-@app.route('/profile/')
-@login_required
-def profile():
     
     user_book_status = UsersBook.query.filter_by(user_id=current_user.id).all()
     book_status = {}
@@ -33,7 +24,20 @@ def profile():
             'book_status': book.status,
             'book_rating': book.rating,
         }
-    
+    all_books = Book.query.all()
+
+
+    return render_template('/list_of_books.html',
+    all_books = all_books, book_status= book_status)
+
+
+
+@app.route('/profile/')
+@login_required
+def profile():
+    """Display users currently reading and read books."""
+    user_book_status = UsersBook.query.filter_by(user_id=current_user.id).all()
+
     read_books = []
     reading_books = []
 
@@ -43,7 +47,7 @@ def profile():
         else:
             reading_books.append(book)
 
-    currently_reading = UsersBook.query.filter_by(user_id= current_user.id, status='reading').all() #toto som skusala vcera, je prakticky to iste, co reading_books
+    currently_reading = UsersBook.query.filter_by(user_id= current_user.id, status='reading').all()
     
     return render_template('/profile.html', read_books=read_books, reading_books=reading_books, currently_reading=currently_reading)
 
@@ -149,6 +153,12 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
+
+@loginManager.unauthorized_handler
+def not_authorized():
+
+    flash('You have to be logged in to view that page.')
+    return redirect(url_for('login'))
 
 @app.errorhandler(404)
 def not_found(_):
