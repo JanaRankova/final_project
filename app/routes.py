@@ -31,7 +31,6 @@ def list_of_books():
     all_books = all_books, book_status= book_status)
 
 
-
 @app.route('/profile/')
 @login_required
 def profile():
@@ -46,13 +45,11 @@ def profile():
             read_books.append(book)
         else:
             reading_books.append(book)
-
-    currently_reading = UsersBook.query.filter_by(user_id= current_user.id, status='reading').all()
     
-    return render_template('/profile.html', read_books=read_books, reading_books=reading_books, currently_reading=currently_reading)
+    return render_template('/profile.html', read_books=read_books, reading_books=reading_books)
 
 
-@app.route('/list/add-book', methods=('GET', 'POST'))  #dont forget to unify names of func, temp etc.
+@app.route('/list/add-book', methods=('GET', 'POST'))
 @login_required
 def add_a_book():
     """Enables adding new books into db to a user. Checks for duplicates."""
