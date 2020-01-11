@@ -8,39 +8,34 @@
     {% else %}
     <title>Welcome to Book Enthusiast!</title>
     {% endif %}
-    <style>
-        body {
-            font-size: 16px;
-            font-family: sans-serif;
-            padding: 40px;
-        }
-        .error {
-            color: red;
-        }
-        th {
-            text-align: left;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+    <link href="https://fonts.googleapis.com/css?family=Public+Sans&display=swap" rel="stylesheet">
 </head>
 <body>
-    {% for message in get_flashed_messages() %}
-        <p>
-            {{ message }}
-        </p>
-    {% endfor %}
-    <div>BookEnthusiast: <a href="{{ url_for('index') }}">Home</a>
-    <a href="{{ url_for('list_of_books') }}">Books</a>
-    <a href="{{ url_for('profile') }}">Profile</a>
-    </div>
-    <hr>
-<header>
-    {% if current_user.is_authenticated %}
-    {{ current_user.username }}
-    <a href="{{ url_for('logout') }}">Sign out</a>
-    {% endif %}
-</header>
-{% block content %}
+    <div class="wrapper">
+        {% for message in get_flashed_messages() %}
+            <p>
+                {{ message }}
+            </p>
+        {% endfor %}
+        <div class="topbar">
+            BookEnthusiast: <a class="topbar_link" href="{{ url_for('index') }}">Home</a>
+            <a class ="topbar_link" href="{{ url_for('list_of_books') }}">Books</a>
+            <a class="topbar_link" href="{{ url_for('profile') }}">Profile</a>
+        </div>
+        <header class="header">
+            {% if current_user.is_authenticated %}
+            {{ current_user.username }}
+            <a href="{{ url_for('logout') }}">Sign out</a>
+            {% endif %}
+        </header>
 
-{% endblock %}
+    {% block content %}
+
+    {% endblock %}
+    </div>
+    <footer>
+        <p>This is footer</p>
+    </footer>
 </body>
 </html>

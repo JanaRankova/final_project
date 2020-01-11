@@ -1,51 +1,57 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h1>
-        List of All Books in Our Database
-    </h1>
-    <table style="width:80%">
-        <tr>
-            <th>Book Name</th>
-            <th>Author</th>
-            <th>Synopsis</th>
-            <th>Status</th>
-            <th>Rating</th>
-            <th>{{ current_user.username }} 's Rating</th>
-        </tr>
-        {% for book in all_books %}
-            <tr>
-                <td>{{ book.name }}</td>
-                <td>{{ book.author.name }}</td>
-                <td>{{ book.synopsis }}</td>
-                {% if book.id in book_status and book_status[book.id]['book_status'] == 'reading' %}
-                    <th>reading</th>
-                    <th>
-                        {% for rating in range(1,6) %}
-                        <a href="{{ url_for('set_status', book_id= book.id, status= 'read', rating=rating) }}">{{ rating }}</a>
-                        {% endfor %}
-                    </th>
-                {% elif book.id in book_status and book_status[book.id]['book_status'] == 'read' %}
-                    <th>read</th>
-                    <th>
-                        {% for rating in range(1,6) %}
-                        <a href="{{ url_for('set_status', book_id= book.id, status= 'read', rating=rating) }}">{{ rating }}</a>
-                        {% endfor %}
-                    </th>
-                    <th>{{ book_status[book.id]['book_rating'] }}</th>
-                {% else %}
-                    <th><a href="{{ url_for('set_status', book_id= book.id, status= 'reading') }}">Add to currently reading</a></th>
-                    <th>
-                        {% for rating in range(1,6) %}
-                        <a href="{{ url_for('set_status', book_id= book.id, status= 'read', rating=rating) }}">{{ rating }}</a>
-                        {% endfor %}
-                    </th>
-            </tr>
-                {% endif %}
-        {% endfor %}
-    </table>
-    <div>
-        <br>
-        <p>Is there a book you would like to read but it's not on this list? Easy! You can add it <a href="{{ url_for('add_a_book') }}">here</a>.</p>
-        <br>
+    <div class="main">
+        <h1>
+            List of All Books in Our Database
+        </h1>
+        <div>
+            <table>
+                <tr>
+                    <th>Book Name</th>
+                    <th>Author</th>
+                    <th>Synopsis</th>
+                    <th>Status</th>
+                    <th>Rating</th>
+                    <th>{{ current_user.username }} 's Rating</th>
+                </tr>
+                {% for book in all_books %}
+                    <tr>
+                        <td>{{ book.name }}</td>
+                        <td>{{ book.author.name }}</td>
+                        <td>{{ book.synopsis }}</td>
+                        {% if book.id in book_status and book_status[book.id]['book_status'] == 'reading' %}
+                            <td>reading</td>
+                            <td>
+                                {% for rating in range(1,6) %}
+                                <a href="{{ url_for('set_status', book_id= book.id, status= 'read', rating=rating) }}">{{ rating }}</a>
+                                {% endfor %}
+                            </td>
+                        {% elif book.id in book_status and book_status[book.id]['book_status'] == 'read' %}
+                            <td>read</td>
+                            <td>
+                                {% for rating in range(1,6) %}
+                                <a href="{{ url_for('set_status', book_id= book.id, status= 'read', rating=rating) }}">{{ rating }}</a>
+                                {% endfor %}
+                            </td>
+                            <td>
+                                {{ book_status[book.id]['book_rating'] }}
+                            </td>
+                        {% else %}
+                            <td><a href="{{ url_for('set_status', book_id= book.id, status= 'reading') }}">Add to currently reading</a></td>
+                            <td>
+                                {% for rating in range(1,6) %}
+                                <a href="{{ url_for('set_status', book_id= book.id, status= 'read', rating=rating) }}">{{ rating }}</a>
+                                {% endfor %}
+                            </td>
+                    </tr>
+                        {% endif %}
+                {% endfor %}
+            </table>
+        </div>
+        <div>
+            <br>
+            <p>Is there a book you would like to read but it's not on this list? Easy! You can add it <a href="{{ url_for('add_a_book') }}">here</a>.</p>
+            <br>
+        </div>
     </div>
 {% endblock %}

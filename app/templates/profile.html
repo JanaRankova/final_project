@@ -1,48 +1,50 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Hello, {{ current_user.username }}!</h1>
-    <h2>Books you are currenly reading:</h2>
-    <div>
-        <table style="width:80%">
-            <tr>
-                <th>Book Name</th>
-                <th>Author</th>
-                <th>Synopsis</th>
-                <th>Rate a Book</th>
-            </tr>
-            {% for book in reading_books %}
+    <div class="main">
+        <h1>Hello, {{ current_user.username }}!</h1>
+        <h2>Books you are currenly reading:</h2>
+        <div>
+            <table>
                 <tr>
-                    <td>{{ book.book.name }}</td>
-                    <td>{{ book.book.author.name }}</td>
-                    <td>{{ book.book.synopsis }}</td>
-                    <th>
-                        {% for rating in range(1,6) %}
-                        <a href="{{ url_for('set_status', book_id= book.book.id, status= 'read', rating=rating) }}">{{ rating }}</a>
-                        {% endfor %}
-                    </th>
+                    <th>Book Name</th>
+                    <th>Author</th>
+                    <th>Synopsis</th>
+                    <th>Rate a Book</th>
                 </tr>
-            {% endfor %}
-        </table>
-    </div>
-    <br>
-    <h2>Book you have already read:</h2>
-    <div>
-        <table style="width:80%">
-            <tr>
-                <th>Book Name</th>
-                <th>Author</th>
-                <th>Synopsis</th>
-                <th>Your rating</th>
-            </tr>
-            {% for book in read_books %}
+                {% for book in reading_books %}
+                    <tr>
+                        <td>{{ book.book.name }}</td>
+                        <td>{{ book.book.author.name }}</td>
+                        <td>{{ book.book.synopsis }}</td>
+                        <td>
+                            {% for rating in range(1,6) %}
+                            <a href="{{ url_for('set_status', book_id= book.book.id, status= 'read', rating=rating) }}">{{ rating }}</a>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <br>
+        <h2>Book you have already read:</h2>
+        <div>
+            <table>
                 <tr>
-                    <td>{{ book.book.name }}</td>
-                    <td>{{ book.book.author.name }}</td>
-                    <td>{{ book.book.synopsis }}</td>
-                    <th>{{ book.rating }}</th>
+                    <th>Book Name</th>
+                    <th>Author</th>
+                    <th>Synopsis</th>
+                    <th>Your rating</th>
                 </tr>
-            {% endfor %}
-        </table>
+                {% for book in read_books %}
+                    <tr>
+                        <td>{{ book.book.name }}</td>
+                        <td>{{ book.book.author.name }}</td>
+                        <td>{{ book.book.synopsis }}</td>
+                        <td>{{ book.rating }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
     </div>
 {% endblock %}
