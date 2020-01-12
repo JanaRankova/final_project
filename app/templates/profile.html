@@ -34,6 +34,7 @@
                     <th>Book Name</th>
                     <th>Author</th>
                     <th>Synopsis</th>
+                    <th>Change Rating</th>
                     <th>Your rating</th>
                 </tr>
                 {% for book in read_books %}
@@ -41,6 +42,11 @@
                         <td>{{ book.book.name }}</td>
                         <td>{{ book.book.author.name }}</td>
                         <td>{{ book.book.synopsis }}</td>
+                        <td>
+                            {% for rating in range(1,6) %}
+                            <a href="{{ url_for('set_status', book_id= book.book.id, status= 'read', rating=rating) }}">{{ rating }}</a>
+                            {% endfor %}
+                        </td>
                         <td>{{ book.rating }}</td>
                     </tr>
                 {% endfor %}

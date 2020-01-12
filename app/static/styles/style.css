@@ -1,52 +1,63 @@
-body {
+*, 
+*:after,
+*:before {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html, body {
     background-color: #def2f1;
     font-size: 16px;
     font-family: 'Open Sans', sans-serif;
     margin: 0px;
-
+    min-height: 100vh;
 }
 .wrapper {
     display: flex;
     text-align: left;
-    flex-flow: row wrap;
-}
-
-.wrapper > * {
-    padding: 10px;
-    flex: 1 100%;
-    position: relative;
+    flex-direction: column;
+    min-height: 100%;
 }
 
 .header {
     color: #def2f1;
     background-color: #3aafa9;
     padding: 15px;
+    height: 50px;
     text-align: end;
     text-shadow: 2px 1px 1px #17252a;
 }
 
 .main {
     padding: 40px;
-    padding-bottom: 40px;
     text-align: left;
 }
 
 footer {
-    position: absolute;
-    bottom: 0;
-    height: 40px;
-    width: 100%;
+    margin-top: auto;
     text-align: center;
     background-color: #3aafa9;
+    padding: 5px;
+    height: 50px;
 }
 
 
 .topbar {
     color: #3aafa9;
     background-color: #17252a;
-    padding: 1em;
+    padding: 10px;
+    height: 60px;
     font-size: larger;
     font-variant: initial;
+    display: flex;
+    align-items: center;
+}
+
+a.topbar_link {
+    color: #feffff;
+    font-size: medium;
+    padding: 5px;
 }
 
 .nopaddingdiv{
@@ -57,10 +68,16 @@ a {
     color: #2b7a78;
 }
 
-a.topbar_link {
-    color: #feffff;
-    font-size: medium;
+div.bookname {
+    font-variant: initial;
+    font-size: larger;
+    font-weight: 600;
+    color: #195351;
 }
+div.author {
+    font-style: italic;
+}
+
 
 h1{
     font-family: 'Open Sans', sans-serif;
@@ -89,3 +106,16 @@ th {
 }
 
 tr:hover {background-color: #3aafa9a2;}
+
+ul {
+    padding: 0px;
+}
+li {
+    display: block;
+    margin-block-end: 20px;
+    padding: 15px;
+    background-color: #feffff;
+    height: 10em;
+}
+
+li:hover {background-color: #3aafa973;}

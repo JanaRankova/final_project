@@ -12,12 +12,13 @@
     <link href="https://fonts.googleapis.com/css?family=Public+Sans&display=swap" rel="stylesheet">
 </head>
 <body>
+    {% for message in get_flashed_messages() %}
+    <p>
+        {{ message }}
+    </p>
+    {% endfor %}
+
     <div class="wrapper">
-        {% for message in get_flashed_messages() %}
-            <p>
-                {{ message }}
-            </p>
-        {% endfor %}
         <div class="topbar">
             BookEnthusiast: <a class="topbar_link" href="{{ url_for('index') }}">Home</a>
             <a class ="topbar_link" href="{{ url_for('list_of_books') }}">Books</a>
@@ -29,13 +30,12 @@
             <a href="{{ url_for('logout') }}">Sign out</a>
             {% endif %}
         </header>
-
     {% block content %}
-
     {% endblock %}
-    </div>
     <footer>
         <p>This is footer</p>
     </footer>
+</div>
 </body>
+
 </html>

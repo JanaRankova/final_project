@@ -4,49 +4,35 @@
         <h1>
             List of All Books in Our Database
         </h1>
-        <div>
-            <table>
-                <tr>
-                    <th>Book Name</th>
-                    <th>Author</th>
-                    <th>Synopsis</th>
-                    <th>Status</th>
-                    <th>Rating</th>
-                    <th>{{ current_user.username }} 's Rating</th>
-                </tr>
+        <div class="nopaddingdiv">
+            <ul>
                 {% for book in all_books %}
-                    <tr>
-                        <td>{{ book.name }}</td>
-                        <td>{{ book.author.name }}</td>
-                        <td>{{ book.synopsis }}</td>
+                    <li><div class="bookname">{{ book.name }}</div>
+                        <div class='author'>by {{ book.author.name }}</div>
+                        <div>Synopsis: {{ book.synopsis }}</div>
                         {% if book.id in book_status and book_status[book.id]['book_status'] == 'reading' %}
-                            <td>reading</td>
-                            <td>
+                            <div>Status: reading</div>
+                            <div>Rating:
                                 {% for rating in range(1,6) %}
                                 <a href="{{ url_for('set_status', book_id= book.id, status= 'read', rating=rating) }}">{{ rating }}</a>
                                 {% endfor %}
-                            </td>
+                            </div>
                         {% elif book.id in book_status and book_status[book.id]['book_status'] == 'read' %}
-                            <td>read</td>
-                            <td>
+                            <div>Status: read</div>
+                            <div>Rating:
                                 {% for rating in range(1,6) %}
                                 <a href="{{ url_for('set_status', book_id= book.id, status= 'read', rating=rating) }}">{{ rating }}</a>
                                 {% endfor %}
-                            </td>
-                            <td>
-                                {{ book_status[book.id]['book_rating'] }}
-                            </td>
+                            </div>
+                            <div>{{ current_user.username }} 's Rating: {{ book_status[book.id]['book_rating'] }}</div>
                         {% else %}
-                            <td><a href="{{ url_for('set_status', book_id= book.id, status= 'reading') }}">Add to currently reading</a></td>
-                            <td>
-                                {% for rating in range(1,6) %}
-                                <a href="{{ url_for('set_status', book_id= book.id, status= 'read', rating=rating) }}">{{ rating }}</a>
-                                {% endfor %}
-                            </td>
-                    </tr>
+                            <div>Status:
+                                <a href="{{ url_for('set_status', book_id= book.id, status= 'reading') }}">Add to currently reading</a>
+                            </div>
                         {% endif %}
+                    </li>
                 {% endfor %}
-            </table>
+            </ul>
         </div>
         <div>
             <br>
