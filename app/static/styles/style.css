@@ -40,6 +40,9 @@ footer {
     background-color: #3aafa9;
     padding: 5px;
     height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 
@@ -48,7 +51,8 @@ footer {
     background-color: #17252a;
     padding: 10px;
     height: 60px;
-    font-size: larger;
+    font-size: x-large;
+    font-weight: 500;
     font-variant: initial;
     display: flex;
     align-items: center;
@@ -81,31 +85,24 @@ div.author {
 
 h1{
     font-family: 'Open Sans', sans-serif;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+h2 {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+h3 {
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 
 
 .error {
     color: red;
 }
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-td {
-    text-align: left;
-    padding: 5px;
-}
-
-th {
-    text-align: middle;
-    padding: 5px;
-    background-color:#2b7a78;
-    color: #feffff;
-}
-
-tr:hover {background-color: #3aafa9a2;}
 
 ul {
     padding: 0px;
@@ -115,7 +112,29 @@ li {
     margin-block-end: 20px;
     padding: 15px;
     background-color: #feffff;
-    height: 10em;
+    box-shadow: #2b7a775d 3px 3px 3px;
 }
 
 li:hover {background-color: #3aafa973;}
+
+
+.flashmessage{
+    background-color: #feffff;
+    padding: 20px;
+    max-width: 600px;
+    margin: 20px auto;
+    display: flex;
+    justify-content: space-between;
+    transition: opacity 0.5s;
+}
+.flashmessage.dissmised {
+    pointer-events: none;
+    opacity: 0;
+}
+.flashmess {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+
+}

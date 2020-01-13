@@ -5,52 +5,42 @@
         <h1>Hello, {{ current_user.username }}!</h1>
         <h2>Books you are currenly reading:</h2>
         <div>
-            <table>
-                <tr>
-                    <th>Book Name</th>
-                    <th>Author</th>
-                    <th>Synopsis</th>
-                    <th>Rate a Book</th>
-                </tr>
+            <ul>
                 {% for book in reading_books %}
-                    <tr>
-                        <td>{{ book.book.name }}</td>
-                        <td>{{ book.book.author.name }}</td>
-                        <td>{{ book.book.synopsis }}</td>
-                        <td>
+                    <li>
+                        <div class="bookname">{{ book.book.name }}</div>
+                        <div class="author">{{ book.book.author.name }}</div>
+                        <article><h5>Synopsis:</h5> 
+                            <p>{{ book.book.synopsis }}</p>
+                        </article>
+                        <div>Rate a Book:
                             {% for rating in range(1,6) %}
                             <a href="{{ url_for('set_status', book_id= book.book.id, status= 'read', rating=rating) }}">{{ rating }}</a>
                             {% endfor %}
-                        </td>
-                    </tr>
+                        </div>
+                    </li>
                 {% endfor %}
-            </table>
+            </ul>
         </div>
-        <br>
         <h2>Book you have already read:</h2>
         <div>
-            <table>
-                <tr>
-                    <th>Book Name</th>
-                    <th>Author</th>
-                    <th>Synopsis</th>
-                    <th>Change Rating</th>
-                    <th>Your rating</th>
-                </tr>
+            <ul>
                 {% for book in read_books %}
-                    <tr>
-                        <td>{{ book.book.name }}</td>
-                        <td>{{ book.book.author.name }}</td>
-                        <td>{{ book.book.synopsis }}</td>
-                        <td>
+                    <li>
+                        <div class="bookname">{{ book.book.name }}</div>
+                        <div class="author">{{ book.book.author.name }}</div>
+                        <article><h5>Synopsis:</h5> 
+                            <p>{{ book.book.synopsis }}</p>
+                        </article>
+                        <div>Change rating:
                             {% for rating in range(1,6) %}
                             <a href="{{ url_for('set_status', book_id= book.book.id, status= 'read', rating=rating) }}">{{ rating }}</a>
                             {% endfor %}
-                        </td>
-                        <td>{{ book.rating }}</td>
-                    </tr>
+                        </div>
+                        <div>Your rating:{{ book.rating }}</div>
+                    </li>
                 {% endfor %}
-            </table>
+            </ul>
         </div>
     </div>
 {% endblock %}

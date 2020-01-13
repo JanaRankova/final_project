@@ -5,6 +5,8 @@ from . import loginManager
 from .auth import create_password, check_password
 from .forms import LoginForm, RegistrationForm, BookAdditionForm
 from .models import db, Book, Author, UsersBook, User
+from sqlalchemy.sql import func
+
 
 
 @app.route('/')
@@ -16,7 +18,6 @@ def index():
 @login_required
 def list_of_books():
     """Creates a list of all books in database. User can browse list and choose a book from it."""
-    
     user_book_status = UsersBook.query.filter_by(user_id=current_user.id).all()
     book_status = {}
     for book in user_book_status:
@@ -25,10 +26,11 @@ def list_of_books():
             'book_rating': book.rating,
         }
     all_books = Book.query.all()
-
+    avg_rating = UsersBook.query.with_entities(func.avg(UsersBook.rating)).group_by(UsersBook.book_id).all()
+    print(avg_rating)
 
     return render_template('/list_of_books.html',
-    all_books = all_books, book_status= book_status)
+    all_books = all_books, book_status= book_status, avg_rating = avg_rating)
 
 
 @app.route('/profile/')

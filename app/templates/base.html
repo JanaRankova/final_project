@@ -12,11 +12,14 @@
     <link href="https://fonts.googleapis.com/css?family=Public+Sans&display=swap" rel="stylesheet">
 </head>
 <body>
-    {% for message in get_flashed_messages() %}
-    <p>
-        {{ message }}
-    </p>
-    {% endfor %}
+    <div class="flashmess">
+        {% for message in get_flashed_messages() %}
+        <p class="flashmessage">
+            {{ message }}
+            <button class="dissmiss">x</button>
+        </p>
+        {% endfor %}
+    </div>
 
     <div class="wrapper">
         <div class="topbar">
@@ -36,6 +39,27 @@
         <p>This is footer</p>
     </footer>
 </div>
+<script>
+    let print = console.log
+    const handleFlashButtonClick = (event => {
+        const {target} = event
+        const flashed = target.closest('.flashmessage')
+        flashed.classList.add('dissmised')
+    })
+
+    const buttons = document.querySelectorAll('.flashmessage .dissmiss')
+    print(buttons)
+    buttons.forEach((button) => {
+        button.addEventListener('click', handleFlashButtonClick)
+    })
+
+    print('A')
+    setTimeout(() => {
+    print('B')
+    }, 0)
+    print('C')
+
+</script>
 </body>
 
 </html>

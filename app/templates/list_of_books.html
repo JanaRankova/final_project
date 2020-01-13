@@ -9,7 +9,9 @@
                 {% for book in all_books %}
                     <li><div class="bookname">{{ book.name }}</div>
                         <div class='author'>by {{ book.author.name }}</div>
-                        <div>Synopsis: {{ book.synopsis }}</div>
+                        <article><h5>Synopsis:</h5> 
+                            <p>{{ book.synopsis }}</p>
+                        </article>
                         {% if book.id in book_status and book_status[book.id]['book_status'] == 'reading' %}
                             <div>Status: reading</div>
                             <div>Rating:
@@ -30,6 +32,7 @@
                                 <a href="{{ url_for('set_status', book_id= book.id, status= 'reading') }}">Add to currently reading</a>
                             </div>
                         {% endif %}
+                            <div>Average rating: {{ avg_rating[book.id - 1][0] }}</div>
                     </li>
                 {% endfor %}
             </ul>
