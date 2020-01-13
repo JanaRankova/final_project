@@ -117,6 +117,13 @@ li {
 
 li:hover {background-color: #3aafa973;}
 
+img {
+    max-width: 5em;
+    max-height: 10em;
+    object-fit: contain;
+    padding: 5px;
+    display: block;
+}
 
 .flashmessage{
     background-color: #feffff;
