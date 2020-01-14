@@ -43,7 +43,7 @@ def list_of_books():
     return render_template(
             '/list_of_books.html',
             all_books=all_books, book_status=book_status,
-            avg_rating_dict=avg_rating_dict)
+            avg_rating_dict=avg_rating_dict, next_url='list_of_books')
 
 
 @app.route('/profile/')
@@ -63,7 +63,8 @@ def profile():
             reading_books.append(book)
 
     return render_template(
-        '/profile.html', read_books=read_books, reading_books=reading_books
+        '/profile.html', read_books=read_books,
+        reading_books=reading_books, next_url='profile'
     )
 
 
@@ -107,11 +108,12 @@ def add_a_book():
 
 
 @app.route(
-    '/books_set_status_rating/<book_id>/<status>', defaults={'rating': None}
+    '/books_set_status_rating/<book_id>/<status>/<next_url>',
+    defaults={'rating': None}
 )
-@app.route('/books_set_status_rating/<book_id>/<status>/<rating>')
+@app.route('/books_set_status_rating/<book_id>/<status>/<next_url>/<rating>')
 @login_required
-def set_status(book_id, status, rating):
+def set_status(book_id, status, next_url, rating):
     """
     Allows user to add new rating but only to a book
     that is being currently read. Also enables to
@@ -133,6 +135,8 @@ def set_status(book_id, status, rating):
         db.session.add(new_rating)
     db.session.commit()
 
+    if next_url:
+        return redirect(url_for(next_url))
     return redirect(url_for('profile'))
 
 

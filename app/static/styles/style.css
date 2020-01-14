@@ -126,7 +126,8 @@ img {
 }
 
 .flashmessage{
-    background-color: #feffff;
+    background-color: #def2f1;
+    color: #17252a;
     padding: 20px;
     max-width: 600px;
     margin: 20px auto;
@@ -134,14 +135,16 @@ img {
     justify-content: space-between;
     transition: opacity 0.5s;
 }
+
 .flashmessage.dissmised {
     pointer-events: none;
     opacity: 0;
 }
+
 .flashmess {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-
+    height: 0px;
 }

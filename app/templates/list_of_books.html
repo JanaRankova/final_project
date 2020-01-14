@@ -16,20 +16,20 @@
                             <div>Status: reading</div>
                             <div>Rating:
                                 {% for rating in range(1,6) %}
-                                <a href="{{ url_for('set_status', book_id= book.id, status= 'read', rating=rating) }}">{{ rating }}</a>
+                                <a href="{{ url_for('set_status', book_id= book.id, status= 'read', next_url=next_url, rating=rating) }}">{{ rating }}</a>
                                 {% endfor %}
                             </div>
                         {% elif book.id in book_status and book_status[book.id]['book_status'] == 'read' %}
                             <div>Status: read</div>
                             <div>Rating:
                                 {% for rating in range(1,6) %}
-                                <a href="{{ url_for('set_status', book_id= book.id, status= 'read', rating=rating) }}">{{ rating }}</a>
+                                <a href="{{ url_for('set_status', book_id= book.id, status= 'read', next_url=next_url, rating=rating) }}">{{ rating }}</a>
                                 {% endfor %}
                             </div>
                             <div>{{ current_user.username }} 's Rating: {{ book_status[book.id]['book_rating'] }}</div>
                         {% else %}
                             <div>Status:
-                                <a href="{{ url_for('set_status', book_id= book.id, status= 'reading') }}">Add to currently reading</a>
+                                <a href="{{ url_for('set_status', book_id= book.id, status= 'reading', next_url=next_url) }}">Add to currently reading</a>
                             </div>
                         {% endif %}
                             <div>Average rating:

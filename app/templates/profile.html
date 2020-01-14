@@ -15,7 +15,7 @@
                         </article>
                         <div>Rate a Book:
                             {% for rating in range(1,6) %}
-                            <a href="{{ url_for('set_status', book_id= book.book.id, status= 'read', rating=rating) }}">{{ rating }}</a>
+                            <a href="{{ url_for('set_status', book_id= book.book.id, status= 'read', next_url=next_url, rating=rating) }}">{{ rating }}</a>
                             {% endfor %}
                         </div>
                         <div>
@@ -39,7 +39,7 @@
                         </article>
                         <div>Change rating:
                             {% for rating in range(1,6) %}
-                            <a href="{{ url_for('set_status', book_id= book.book.id, status= 'read', rating=rating) }}">{{ rating }}</a>
+                            <a href="{{ url_for('set_status', book_id= book.book.id, status= 'read', next_url=next_url, rating=rating) }}">{{ rating }}</a>
                             {% endfor %}
                         </div>
                         <div>Your rating:{{ book.rating }}</div>
