@@ -7,43 +7,62 @@
         <div class="nopaddingdiv">
             <ul>
                 {% for book in all_books %}
-                    <li><div class="bookname">{{ book.name }}</div>
-                        <div class='author'>by {{ book.author.name }}</div>
-                        <article><h5>Synopsis:</h5> 
-                            <p>{{ book.synopsis }}</p>
-                        </article>
-                        {% if book.id in book_status and book_status[book.id]['book_status'] == 'reading' %}
-                            <div>Status: reading</div>
-                            <div>Rating:
-                                {% for rating in range(1,6) %}
-                                <a href="{{ url_for('set_status', book_id= book.id, status= 'read', next_url=next_url, rating=rating) }}">{{ rating }}</a>
-                                {% endfor %}
+                    <li>
+                        <div class="coverwrapper">
+                            <div class="sidetocover">
+                                <div class="textcontent">
+                                    <div class="bookname">{{ book.name }}</div>
+                                    <div class='author'>by {{ book.author.name }}</div>
+                                    <article>
+                                        <p>{{ book.synopsis }}</p>
+                                    </article>
+                                </div>
+                                <div class="status">
+                                    {% if book.id in book_status and book_status[book.id]['book_status'] == 'reading' %}
+                                        <div class="changeable">
+                                            <div>Status: reading</div>
+                                            <div>Rating:
+                                                {% for rating in range(1,6) %}
+                                                <a href="{{ url_for('set_status', book_id= book.id, status= 'read', next_url=next_url, rating=rating) }}">{{ rating }}</a>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    {% elif book.id in book_status and book_status[book.id]['book_status'] == 'read' %}
+                                        <div class="changeable">
+                                            <div>Status: read</div>
+                                            <div>Rating:
+                                                {% for rating in range(1,6) %}
+                                                <a href="{{ url_for('set_status', book_id= book.id, status= 'read', next_url=next_url, rating=rating) }}">{{ rating }}</a>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        <div class="ratings">
+                                            <div>Your Rating: {{ book_status[book.id]['book_rating'] }}</div>
+                                        </div>
+                                    {% else %}
+                                        <div class="changeable">
+                                            <div>Status:
+                                                <a href="{{ url_for('set_status', book_id= book.id, status= 'reading', next_url=next_url) }}">Add to currently reading</a>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                        <div class="ratings">
+                                            <div>Average rating:
+                                                {% if avg_rating[book.id] %}
+                                                    {{ avg_rating[book.id] }}
+                                                {% else %}
+                                                    Not rated yet
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                </div>
                             </div>
-                        {% elif book.id in book_status and book_status[book.id]['book_status'] == 'read' %}
-                            <div>Status: read</div>
-                            <div>Rating:
-                                {% for rating in range(1,6) %}
-                                <a href="{{ url_for('set_status', book_id= book.id, status= 'read', next_url=next_url, rating=rating) }}">{{ rating }}</a>
-                                {% endfor %}
-                            </div>
-                            <div>{{ current_user.username }} 's Rating: {{ book_status[book.id]['book_rating'] }}</div>
-                        {% else %}
-                            <div>Status:
-                                <a href="{{ url_for('set_status', book_id= book.id, status= 'reading', next_url=next_url) }}">Add to currently reading</a>
-                            </div>
-                        {% endif %}
-                            <div>Average rating:
-                                {% if avg_rating_dict[book.id] %}
-                                    {{ avg_rating_dict[book.id] }}
-                                {% else %}
-                                    Not rated yet
-                                {% endif %}
-                            </div>
-                            <div>
+                            <div class="cover">
                                 {% if book.cover %}
                                     <img src="{{ url_for('static', filename=book.cover) }}" alt="Cover">
                                 {% endif %}
                             </div>
+                        </div>
                     </li>
                 {% endfor %}
             </ul>

@@ -117,11 +117,41 @@ li {
 
 li:hover {background-color: #3aafa973;}
 
+.coverwrapper {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: left;
+}
+
+.sidetocover {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.textcontent {
+    padding-bottom: 15px;
+}
+
+.status {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+article {
+    padding-top: 10px;
+    margin-right: 60px;
+    text-indent: 30px;
+
+}
+
 img {
-    max-width: 5em;
-    max-height: 10em;
+    max-width: 10em;
     object-fit: contain;
-    padding: 5px;
+    padding: 10px;
     display: block;
 }
 

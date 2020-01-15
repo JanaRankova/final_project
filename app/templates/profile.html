@@ -8,20 +8,35 @@
             <ul>
                 {% for book in reading_books %}
                     <li>
-                        <div class="bookname">{{ book.book.name }}</div>
-                        <div class="author">{{ book.book.author.name }}</div>
-                        <article><h5>Synopsis:</h5> 
-                            <p>{{ book.book.synopsis }}</p>
-                        </article>
-                        <div>Rate a Book:
-                            {% for rating in range(1,6) %}
-                            <a href="{{ url_for('set_status', book_id= book.book.id, status= 'read', next_url=next_url, rating=rating) }}">{{ rating }}</a>
-                            {% endfor %}
-                        </div>
-                        <div>
-                            {% if book.book.cover %}
-                                <img src="{{ url_for('static', filename=book.book.cover) }}" alt="book.book.name">
-                            {% endif %}
+                        <div class="coverwrapper">
+                            <div class="sidetocover">
+                                <div class="textcontent">
+                                    <div class="bookname">{{ book.book.name }}</div>
+                                    <div class="author">{{ book.book.author.name }}</div>
+                                    <article>
+                                        <p>{{ book.book.synopsis }}</p>
+                                    </article>
+                                </div>
+                                <div class="status">
+                                    <div>Rate a Book:
+                                        {% for rating in range(1,6) %}
+                                        <a href="{{ url_for('set_status', book_id= book.book.id, status= 'read', next_url=next_url, rating=rating) }}">{{ rating }}</a>
+                                        {% endfor %}
+                                    </div>
+                                    <div>Average rating:
+                                        {% if avg_rating[book.book.id] %}
+                                            {{ avg_rating[book.book.id] }}
+                                        {% else %}
+                                            Not rated yet
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="cover">
+                                {% if book.book.cover %}
+                                    <img src="{{ url_for('static', filename=book.book.cover) }}" alt="book.book.name">
+                                {% endif %}
+                            </div>
                         </div>
                     </li>
                 {% endfor %}
@@ -32,21 +47,40 @@
             <ul>
                 {% for book in read_books %}
                     <li>
-                        <div class="bookname">{{ book.book.name }}</div>
-                        <div class="author">{{ book.book.author.name }}</div>
-                        <article><h5>Synopsis:</h5> 
-                            <p>{{ book.book.synopsis }}</p>
-                        </article>
-                        <div>Change rating:
-                            {% for rating in range(1,6) %}
-                            <a href="{{ url_for('set_status', book_id= book.book.id, status= 'read', next_url=next_url, rating=rating) }}">{{ rating }}</a>
-                            {% endfor %}
-                        </div>
-                        <div>Your rating:{{ book.rating }}</div>
-                        <div>
-                            {% if book.book.cover %}
-                                <img src="{{ url_for('static', filename=book.book.cover) }}" alt="book.book.name">
-                            {% endif %}
+                        <div class="coverwrapper">
+                            <div class="sidetocover">
+                                <div class="textcontent">
+                                    <div class="bookname">{{ book.book.name }}</div>
+                                    <div class="author">{{ book.book.author.name }}</div>
+                                    <article>
+                                        <p>{{ book.book.synopsis }}</p>
+                                    </article>
+                                </div>
+                                <div class="status">
+                                    <div class="changeable">
+                                        <div>Change rating:
+                                            {% for rating in range(1,6) %}
+                                            <a href="{{ url_for('set_status', book_id= book.book.id, status= 'read', next_url=next_url, rating=rating) }}">{{ rating }}</a>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    <div class="ratings">
+                                        <div>Your rating:{{ book.rating }}</div>
+                                        <div>Average rating:
+                                            {% if avg_rating[book.book.id] %}
+                                                {{ avg_rating[book.book.id] }}
+                                            {% else %}
+                                                Not rated yet
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="cover">
+                                {% if book.book.cover %}
+                                    <img src="{{ url_for('static', filename=book.book.cover) }}" alt="book.book.name">
+                                {% endif %}
+                            </div>
                         </div>
                     </li>
                 {% endfor %}

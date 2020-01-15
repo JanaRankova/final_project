@@ -5,7 +5,6 @@ from . import loginManager, os
 from .auth import create_password, check_password
 from .forms import LoginForm, RegistrationForm, BookAdditionForm
 from .models import db, Book, Author, UsersBook, User
-from sqlalchemy.sql import func
 from werkzeug.utils import secure_filename
 from datetime import datetime
 
@@ -34,16 +33,13 @@ def list_of_books():
         }
 
     all_books = Book.query.all()
-    avg_rating = db.session.query(UsersBook.book_id, func.avg(
-        UsersBook.rating)).group_by(UsersBook.book_id).all()
-    print(avg_rating)
-    avg_rating_dict = dict(avg_rating)
-    print(avg_rating_dict)
+
+    avg_rating = UsersBook.average_rating(UsersBook)
 
     return render_template(
             '/list_of_books.html',
             all_books=all_books, book_status=book_status,
-            avg_rating_dict=avg_rating_dict, next_url='list_of_books')
+            avg_rating=avg_rating, next_url='list_of_books')
 
 
 @app.route('/profile/')
@@ -62,9 +58,12 @@ def profile():
         else:
             reading_books.append(book)
 
+    avg_rating = UsersBook.average_rating(UsersBook)
+
     return render_template(
         '/profile.html', read_books=read_books,
-        reading_books=reading_books, next_url='profile'
+        reading_books=reading_books, next_url='profile',
+        avg_rating=avg_rating
     )
 
 

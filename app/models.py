@@ -1,5 +1,6 @@
 from . import db
 from flask_login import UserMixin
+from sqlalchemy.sql import func
 
 
 class Author(db.Model):
@@ -54,6 +55,17 @@ class UsersBook(db.Model):
 
     book = db.relationship('Book', backref='users_book')
     user = db.relationship('User', backref='users_book')
+
+    def average_rating(self):
+        """
+        Takes average rating of every book by book_id and creates dictionary
+        so ratings can be matched with proper book in view.
+        """
+
+        avg_rating = db.session.query(self.book_id, func.avg(
+            self.rating)).group_by(self.book_id).all()
+
+        return dict(avg_rating)
 
     def __repr__(self):
         return '<Reading {}{}>'.format(self.book_id, self.user_id)
