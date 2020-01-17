@@ -6,7 +6,7 @@
     {% if title %}
     <title>{{ title }}</title>
     {% else %}
-    <title>Welcome to Book Enthusiast!</title>
+    <title>BookEnthusiast</title>
     {% endif %}
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
     <link href="https://fonts.googleapis.com/css?family=Public+Sans&display=swap" rel="stylesheet">
@@ -24,9 +24,15 @@
 
     <div class="wrapper">
         <div class="topbar">
-            BookEnthusiast: <a class="topbar_link" href="{{ url_for('index') }}">Home</a>
-            <a class ="topbar_link" href="{{ url_for('list_of_books') }}">Books</a>
-            <a class="topbar_link" href="{{ url_for('profile') }}">Profile</a>
+            <a class="home_button {% if current_url=='index' %} current {% endif %}" href="{{ url_for('index') }}">
+                <div>
+                    <h3>
+                        BookEnthusiast:
+                    </h3>
+                </div>
+            </a>
+            <a class ="topbar_link {% if current_url=='list_of_books' %} current {% endif %}" href="{{ url_for('list_of_books') }}">Books</a>
+            <a class="topbar_link {% if current_url=='profile' %} current {% endif %}" href="{{ url_for('profile') }}">Profile</a>
         </div>
         <header class="header">
             {% if current_user.is_authenticated %}
@@ -37,7 +43,10 @@
     {% block content %}
     {% endblock %}
     <footer>
-        <p>This is footer</p>
+        <p>
+            “Books break the shackles of time – proof that humans can work magic.”
+            <p id="author-quote">Carl Sagan</p> 
+        </p>
     </footer>
 </div>
 <script>
@@ -49,17 +58,9 @@
     })
 
     const buttons = document.querySelectorAll('.flashmessage .dissmiss')
-    print(buttons)
     buttons.forEach((button) => {
         button.addEventListener('click', handleFlashButtonClick)
     })
-
-    print('A')
-    setTimeout(() => {
-    print('B')
-    }, 0)
-    print('C')
-
 </script>
 </body>
 

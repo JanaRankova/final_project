@@ -4,10 +4,13 @@
         <h1>
             List of All Books in Our Database
         </h1>
-        <div class="nopaddingdiv">
+        <input id="search-box" type="text" placeholder='Type to search'>
+        <button id="search-clear" class="hidden" type="button">&times;</button>
+        <p id="search-nores" class="hidden">No results.</p>
+        <div>
             <ul>
                 {% for book in all_books %}
-                    <li>
+                    <li id="book-{{ book.id }}" class="book-search-target" data-name="{{ book.name }}" data-author="{{ book.author.name }}">
                         <div class="coverwrapper">
                             <div class="sidetocover">
                                 <div class="textcontent">
@@ -18,43 +21,34 @@
                                     </article>
                                 </div>
                                 <div class="status">
-                                    {% if book.id in book_status and book_status[book.id]['book_status'] == 'reading' %}
-                                        <div class="changeable">
-                                            <div>Status: reading</div>
+                                    <div class="changeable">
+                                        {% if book.id in book_status %}
+                                            <div>Status: {{ book_status[book.id]['book_status'] }}</div>
                                             <div>Rating:
                                                 {% for rating in range(1,6) %}
-                                                <a href="{{ url_for('set_status', book_id= book.id, status= 'read', next_url=next_url, rating=rating) }}">{{ rating }}</a>
+                                                <a href="{{ url_for('set_status', book_id= book.id, status= 'read', next_url=current_url, rating=rating) }}">{{ rating }}</a>
                                                 {% endfor %}
                                             </div>
-                                        </div>
-                                    {% elif book.id in book_status and book_status[book.id]['book_status'] == 'read' %}
-                                        <div class="changeable">
-                                            <div>Status: read</div>
-                                            <div>Rating:
-                                                {% for rating in range(1,6) %}
-                                                <a href="{{ url_for('set_status', book_id= book.id, status= 'read', next_url=next_url, rating=rating) }}">{{ rating }}</a>
-                                                {% endfor %}
+                                        {% endif %}
+                                        {% if book.id not in book_status %}
+                                            <div>
+                                                Status:
+                                                <a href="{{ url_for('set_status', book_id= book.id, status= 'reading', next_url=current_url) }}">Add to currently reading</a>
                                             </div>
-                                        </div>
-                                        <div class="ratings">
+                                        {% endif %}
+                                    </div>
+                                    <div class="ratings">
+                                        {% if book.id in book_status and book_status[book.id]['book_status'] == 'read' %}
                                             <div>Your Rating: {{ book_status[book.id]['book_rating'] }}</div>
+                                        {% endif %}
+                                        <div>Average rating:
+                                            {% if avg_rating[book.id] %}
+                                                {{ avg_rating[book.id] }}
+                                            {% else %}
+                                                Not rated yet
+                                            {% endif %}
                                         </div>
-                                    {% else %}
-                                        <div class="changeable">
-                                            <div>Status:
-                                                <a href="{{ url_for('set_status', book_id= book.id, status= 'reading', next_url=next_url) }}">Add to currently reading</a>
-                                            </div>
-                                        </div>
-                                    {% endif %}
-                                        <div class="ratings">
-                                            <div>Average rating:
-                                                {% if avg_rating[book.id] %}
-                                                    {{ avg_rating[book.id] }}
-                                                {% else %}
-                                                    Not rated yet
-                                                {% endif %}
-                                            </div>
-                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="cover">
@@ -73,4 +67,62 @@
             <br>
         </div>
     </div>
+    <script>
+
+        const show = (element) => {
+            element.classList.remove('hidden')
+        }
+
+        const hide = (element) => {
+            element.classList.add('hidden')
+        }
+
+        const searchInput = document.getElementById('search-box')
+        const searchClear = document.getElementById('search-clear')
+        const searchNores = document.getElementById('search-nores')
+        const bookSearchTarget = document.querySelectorAll('.book-search-target')
+
+        
+
+        const filterList = (searchValue) => {
+            const filter = searchValue.toLowerCase()
+
+            if (filter) {
+                show(searchClear)
+            } else {
+                hide(searchClear)
+            }
+
+            bookSearchTarget.forEach((book) => {
+                const name = book.dataset.name.toLowerCase()
+                const authorName = book.dataset.author.toLowerCase()
+                
+                if (name.includes(filter) || authorName.includes(filter)){
+                    show(book)
+                } else {
+                    hide(book)
+                }
+            })
+
+            const hiddenBooks = document.querySelectorAll('.book-search-target.hidden')
+
+            if (hiddenBooks.length === bookSearchTarget.length) {
+                show(searchNores)
+            } else {
+                hide(searchNores)
+            }
+        }
+
+
+        searchInput.addEventListener('keyup', (event) => {
+            filterList(event.target.value)
+        })
+
+        searchClear.addEventListener('click', (event) => {
+            filterList('')
+            searchInput.value = ''
+        })
+    
+    </script>
+
 {% endblock %}

@@ -1,36 +1,46 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div>
-        <h1>
-            Create an account
-        </h1>
-        <form action="{{ url_for('register') }}" method="POST">
-            {{ form.hidden_tag() }}
-            <div>
-                {{ form.username.label }}
-                {{ form.username }}
-                {% for error in form.username.errors %}
-                    <p class="error">
-                        {{ error }}
-                    </p>
-                    {% endfor %}
+    <div class="main">
+        <div class="centering">
+            <div class="form-style">
+                <h1>
+                    Create an account
+                </h1>
+                <form action="{{ url_for('register') }}" method="POST">
+                    {{ form.hidden_tag() }}
+                    <div class="form-section">
+                        <div class="form-label">
+                            {{ form.username.label }}
+                        </div>
+                        {{ form.username(class="form-box") }}
+                        {% for error in form.username.errors %}
+                            <p class="error">
+                                {{ error }}
+                            </p>
+                            {% endfor %}
+                    </div>
+                    <div class="form-section">
+                        <div class="form-label">
+                            {{ form.password.label }}
+                        </div>
+                        {{ form.password(class="form-box") }}
+                        {% for error in form.username.errors %}
+                        <p class="error">
+                            {{ error }}
+                        </p>
+                        {% endfor %}
+                    </div>
+                    <div class="form-section">
+                        <div class="form-label">
+                            {{ form.password2.label }}
+                        </div>
+                        {{ form.password2(class="form-box") }}
+                    </div>
+                    <div class="form-section">
+                        {{ form.submit(class='button') }}
+                    </div>
+                </form>
             </div>
-            <div>
-                {{ form.password.label }}
-                {{ form.password }}
-                {% for error in form.username.errors %}
-                <p class="error">
-                    {{ error }}
-                </p>
-                {% endfor %}
-            </div>
-            <div>
-                {{ form.password2.label }}
-                {{ form.password2 }}
-            </div>
-            <div>
-                {{ form.submit(class='button') }}
-            </div>
-        </form>
+        </div>
     </div>
 {% endblock %}

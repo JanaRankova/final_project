@@ -11,7 +11,10 @@ from datetime import datetime
 
 @app.route('/')
 def index():
-    return render_template('/index.html', title='Home')
+
+    return render_template(
+        '/index.html', title='Home', current_url='index'
+    )
 
 
 @app.route('/list/')
@@ -37,9 +40,9 @@ def list_of_books():
     avg_rating = UsersBook.average_rating(UsersBook)
 
     return render_template(
-            '/list_of_books.html',
+            '/list_of_books.html', title='Books',
             all_books=all_books, book_status=book_status,
-            avg_rating=avg_rating, next_url='list_of_books')
+            avg_rating=avg_rating, current_url='list_of_books')
 
 
 @app.route('/profile/')
@@ -61,8 +64,9 @@ def profile():
     avg_rating = UsersBook.average_rating(UsersBook)
 
     return render_template(
-        '/profile.html', read_books=read_books,
-        reading_books=reading_books, next_url='profile',
+        '/profile.html', title='Profile',
+        read_books=read_books,
+        reading_books=reading_books, current_url='profile',
         avg_rating=avg_rating
     )
 
@@ -135,7 +139,7 @@ def set_status(book_id, status, next_url, rating):
     db.session.commit()
 
     if next_url:
-        return redirect(url_for(next_url))
+        return redirect(url_for(next_url, _anchor='book-' + str(book_id)))
     return redirect(url_for('profile'))
 
 
@@ -230,7 +234,8 @@ def inject_user():
     """Inject data of current user into templates and forms."""
 
     return dict(
-        user=current_user
+        user=current_user,
+        current_url=None
     )
 
 

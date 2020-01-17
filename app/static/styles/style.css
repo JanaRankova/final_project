@@ -18,6 +18,7 @@ html, body {
     text-align: left;
     flex-direction: column;
     min-height: 100%;
+    align-items: center;
 }
 
 .header {
@@ -26,12 +27,49 @@ html, body {
     padding: 15px;
     height: 50px;
     text-align: end;
-    text-shadow: 2px 1px 1px #17252a;
+    text-shadow: 0px 0px 1px #2b7a78;
+    width: 100%;
+}
+
+.topbar {
+    color: #3aafa9;
+    background-color: #17252a;
+    padding: 15px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+a.home_button {
+    font-size: larger;
+    font-variant: initial;
+}
+
+a.home_button.current {
+    color: #2b928f;
+}
+
+a.topbar_link {
+    color: #feffff;
+    font-size: large;
+    padding-left: 10px;
+}
+
+a.topbar_link.current {
+    color:#3aafa9;
 }
 
 .main {
     padding: 40px;
     text-align: left;
+    width: 100%;
+    max-width: 960px;
+    
+}
+
+.hidden {
+    display: none !important;
 }
 
 footer {
@@ -43,33 +81,49 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
+    font-style: italic;
 }
 
-
-.topbar {
-    color: #3aafa9;
-    background-color: #17252a;
+#author-quote {
     padding: 10px;
-    height: 60px;
-    font-size: x-large;
-    font-weight: 500;
-    font-variant: initial;
-    display: flex;
-    align-items: center;
+    margin-top: 10px;
+    font-size: small;
 }
 
-a.topbar_link {
-    color: #feffff;
+#search-box {
+    margin-bottom: 15px;
+    background-color: #feffff;
+    border: 2px solid #2b928f;
     font-size: medium;
     padding: 5px;
 }
 
-.nopaddingdiv{
-    padding: 0px;
+#search-box:focus {
+    -moz-box-shadow: 0 0 8px #2b928f;
+    -webkit-box-shadow: 0 0 8px #2b928f;
+    box-shadow: #2b928f 0 0 8px;
+    border: 1px solid #2b928f;
+}
+
+#search-clear {
+    background-color: #2b7a78;
+    color: #feffff;
+    border: 1px solid #195351;
+    padding: 5px;
+}
+
+#search-nores {
+    padding-top: 15px;
 }
 
 a {
     color: #2b7a78;
+    text-decoration: none;
+}
+
+a:hover {
+    font-weight: bold;
 }
 
 div.bookname {
@@ -81,7 +135,6 @@ div.bookname {
 div.author {
     font-style: italic;
 }
-
 
 h1{
     font-family: 'Open Sans', sans-serif;
@@ -98,7 +151,6 @@ h3 {
     padding-top: 15px;
     padding-bottom: 15px;
 }
-
 
 .error {
     color: red;
@@ -120,7 +172,7 @@ li:hover {background-color: #3aafa973;}
 .coverwrapper {
     display: flex;
     flex-direction: row-reverse;
-    justify-content: left;
+    justify-content: flex-end;
 }
 
 .sidetocover {
@@ -128,6 +180,7 @@ li:hover {background-color: #3aafa973;}
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    flex: 1;
 }
 
 .textcontent {
@@ -153,6 +206,47 @@ img {
     object-fit: contain;
     padding: 10px;
     display: block;
+}
+
+.centering {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-style {
+    background-color: #feffff;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border: 2px solid #2b7a78;
+    width: 100%;
+    max-width: 350px;
+}
+
+.form-section {
+    padding-bottom: 10px;
+}
+
+.form-label {
+    padding-bottom: 5px;
+}
+
+.form-box {
+    padding: 5px;
+    border: 1px solid #2b7a78;
+    background-color: #def2f1;
+}
+
+.form-box:focus {
+    box-shadow: #2b7a78 0 0 3px;
+}
+
+.button {
+    border: none;
+    padding: 5px;
+    background-color: #2b928f;
+    color: #feffff;
 }
 
 .flashmessage{
