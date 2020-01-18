@@ -272,3 +272,26 @@ img {
     width: 100%;
     height: 0px;
 }
+
+:root {
+    --star-size: 25px;
+    --star-color: #def2f1;
+    --star-background: #2b7a78;
+}
+
+.Stars {
+    --percent: calc(var(--rating) / 5 * 100%);
+    
+    display: inline-block;
+    font-size: var(--star-size);
+    font-family: Times;
+    line-height: 1;
+}
+  
+.Stars::before {
+    content: '★★★★★';
+    letter-spacing: 3px;
+    background: linear-gradient(90deg, var(--star-background) var(--percent), var(--star-color) var(--percent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}

@@ -11,19 +11,27 @@
                         <div class="coverwrapper">
                             <div class="sidetocover">
                                 <div class="textcontent">
-                                    <div class="bookname">{{ book.book.name }}</div>
-                                    <div class="author">{{ book.book.author.name }}</div>
+                                    <div class="bookname">
+                                        {{ book.book.name }}
+                                    </div>
+                                    <div class="author">
+                                        {{ book.book.author.name }}
+                                    </div>
                                     <article>
-                                        <p>{{ book.book.synopsis }}</p>
+                                        <p>
+                                            {{ book.book.synopsis }}
+                                        </p>
                                     </article>
                                 </div>
                                 <div class="status">
-                                    <div>Rate a Book:
+                                    <div>
+                                        Rate a Book:
                                         {% for rating in range(1,6) %}
                                         <a href="{{ url_for('set_status', book_id= book.book.id, status= 'read', next_url=current_url, rating=rating) }}">{{ rating }}</a>
                                         {% endfor %}
                                     </div>
-                                    <div>Average rating:
+                                    <div>
+                                        Average rating:
                                         {% if avg_rating[book.book.id] %}
                                             {{ avg_rating[book.book.id] }}
                                         {% else %}
@@ -42,7 +50,9 @@
                 {% endfor %}
             </ul>
         </div>
-        <h2>Book you have already read:</h2>
+        <h2>
+            Book you have already read:
+        </h2>
         <div>
             <ul>
                 {% for book in read_books %}
@@ -50,23 +60,33 @@
                         <div class="coverwrapper">
                             <div class="sidetocover">
                                 <div class="textcontent">
-                                    <div class="bookname">{{ book.book.name }}</div>
-                                    <div class="author">{{ book.book.author.name }}</div>
+                                    <div class="bookname">
+                                        {{ book.book.name }}
+                                    </div>
+                                    <div class="author">
+                                        {{ book.book.author.name }}
+                                    </div>
                                     <article>
-                                        <p>{{ book.book.synopsis }}</p>
+                                        <p>
+                                            {{ book.book.synopsis }}
+                                        </p>
                                     </article>
                                 </div>
                                 <div class="status">
                                     <div class="changeable">
-                                        <div>Change rating:
+                                        <div>
+                                            Change rating:
                                             {% for rating in range(1,6) %}
                                             <a href="{{ url_for('set_status', book_id= book.book.id, status= 'read', next_url=current_url, rating=rating) }}">{{ rating }}</a>
                                             {% endfor %}
                                         </div>
                                     </div>
                                     <div class="ratings">
-                                        <div>Your rating:{{ book.rating }}</div>
-                                        <div>Average rating:
+                                        <div>
+                                            Your rating:{{ book.rating }}
+                                        </div>
+                                        <div>
+                                            Average rating:
                                             {% if avg_rating[book.book.id] %}
                                                 {{ avg_rating[book.book.id] }}
                                             {% else %}
