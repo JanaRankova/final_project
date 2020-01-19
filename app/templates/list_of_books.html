@@ -54,7 +54,7 @@
                                         {% endif %}
                                         <div>Average rating:
                                             {% if avg_rating[book.id] %}
-                                                <div class="Stars" style="--rating:{{ avg_rating[book.id] }}" [attr.aria-label]=" {{ avg_rating[book.id] }} ">
+                                                <div class="Stars" style="--rating:{{ avg_rating[book.id] }}" title="{{ avg_rating[book.id] }}"">
                                                 </div>
                                             {% else %}
                                                 Not rated yet
