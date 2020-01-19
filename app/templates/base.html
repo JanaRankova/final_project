@@ -21,7 +21,7 @@
         </p>
         {% endfor %}
     </div>
-
+    
     <div class="wrapper">
         <div class="topbar">
             <a class="home_button {% if current_url=='index' %} current {% endif %}" href="{{ url_for('index') }}">
@@ -40,28 +40,16 @@
             <a href="{{ url_for('logout') }}">Sign out</a>
             {% endif %}
         </header>
-    {% block content %}
-    {% endblock %}
-    <footer>
-        <p>
-            “Books break the shackles of time – proof that humans can work magic.”
-            <p id="author-quote">Carl Sagan</p> 
-        </p>
-    </footer>
-</div>
-<script>
-    let print = console.log
-    const handleFlashButtonClick = (event => {
-        const {target} = event
-        const flashed = target.closest('.flashmessage')
-        flashed.classList.add('dissmised')
-    })
-
-    const buttons = document.querySelectorAll('.flashmessage .dissmiss')
-    buttons.forEach((button) => {
-        button.addEventListener('click', handleFlashButtonClick)
-    })
-</script>
+        {% block content %}
+        {% endblock %}
+        <footer>
+            <p>
+                “Books break the shackles of time – proof that humans can work magic.”
+                <p id="author-quote">Carl Sagan</p> 
+            </p>
+        </footer>
+    </div>
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
 </body>
 
 </html>
