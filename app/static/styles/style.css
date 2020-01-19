@@ -12,6 +12,9 @@ html, body {
     font-family: 'Open Sans', sans-serif;
     margin: 0px;
     min-height: 100vh;
+    --star-size: 25px;
+    --star-color: #def2f1;
+    --star-background: #2b7a78;
 }
 .wrapper {
     display: flex;
@@ -239,6 +242,7 @@ img {
 }
 
 .form-box:focus {
+    outline: none !important;
     box-shadow: #2b7a78 0 0 3px;
 }
 
@@ -273,15 +277,8 @@ img {
     height: 0px;
 }
 
-:root {
-    --star-size: 25px;
-    --star-color: #def2f1;
-    --star-background: #2b7a78;
-}
-
 .Stars {
     --percent: calc(var(--rating) / 5 * 100%);
-    
     display: inline-block;
     font-size: var(--star-size);
     font-family: Times;
@@ -294,4 +291,28 @@ img {
     background: linear-gradient(90deg, var(--star-background) var(--percent), var(--star-color) var(--percent));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+
+.star-rating-wrapper {
+    display: inline-flex;
+}
+
+.star-rating {
+    width: var(--star-size);
+    height: var(--star-size);
+    font-size: var(--star-size);
+    outline: 1px solid lime;
+    color: transparent;
+    font-family: Times;
+    line-height: 1;
+}
+
+.star-rating::before {
+content: '★';
+color: beige;
+}
+
+.star-rating.highlighted:before,
+.star-rating:hover:before {
+    color: blue;
 }

@@ -37,7 +37,7 @@ def list_of_books():
 
     all_books = Book.query.all()
 
-    avg_rating = UsersBook.average_rating(UsersBook)
+    avg_rating = UsersBook.average_rating()
 
     return render_template(
             '/list_of_books.html', title='Books',
@@ -61,7 +61,7 @@ def profile():
         else:
             reading_books.append(book)
 
-    avg_rating = UsersBook.average_rating(UsersBook)
+    avg_rating = UsersBook.average_rating()
 
     return render_template(
         '/profile.html', title='Profile',
@@ -237,10 +237,3 @@ def inject_user():
         user=current_user,
         current_url=None
     )
-
-
-@app.route('/db')
-def populatedb():
-    """Populates db with fake data."""
-
-# pass data here

@@ -9,8 +9,8 @@ class Author(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, index=True)
 
-    def __repr__(self):
-        return '<Author {}>'.format(self.name)
+    def __repr__(cls):
+        return '<Author {}>'.format(cls.name)
 
 
 class Book(db.Model):
@@ -24,8 +24,8 @@ class Book(db.Model):
 
     author = db.relationship('Author', backref='books')
 
-    def __repr__(self):
-        return '<Book {}>'.format(self.name)
+    def __repr__(cls):
+        return '<Book {}>'.format(cls.name)
 
 
 class User(db.Model, UserMixin):
@@ -37,8 +37,8 @@ class User(db.Model, UserMixin):
     )
     password = db.Column(db.String(256), nullable=False)
 
-    def __repr__(self):
-        return '<User {}>'.format(self.username)
+    def __repr__(cls):
+        return '<User {}>'.format(cls.username)
 
 
 class UsersBook(db.Model):
@@ -56,16 +56,17 @@ class UsersBook(db.Model):
     book = db.relationship('Book', backref='users_book')
     user = db.relationship('User', backref='users_book')
 
-    def average_rating(self):
+    @classmethod
+    def average_rating(cls):
         """
         Takes average rating of every book by book_id and creates dictionary
         so ratings can be matched with proper book in view.
         """
 
-        avg_rating = db.session.query(self.book_id, func.avg(
-            self.rating)).group_by(self.book_id).all()
+        avg_rating = db.session.query(cls.book_id, func.avg(
+            cls.rating)).group_by(cls.book_id).all()
 
         return dict(avg_rating)
 
-    def __repr__(self):
-        return '<Reading {}{}>'.format(self.book_id, self.user_id)
+    def __repr__(cls):
+        return '<Reading {}{}>'.format(cls.book_id, cls.user_id)

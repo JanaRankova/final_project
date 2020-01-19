@@ -34,9 +34,11 @@
                                             </div>
                                             <div>
                                                 Rating:
-                                                {% for rating in range(1,6) %}
-                                                <a href="{{ url_for('set_status', book_id= book.id, status= 'read', next_url=current_url, rating=rating) }}">{{ rating }}</a>
-                                                {% endfor %}
+                                                <div class="star-rating-wrapper">
+                                                    {% for rating in range(1,6) %}
+                                                    <a class="star-rating" data-rating-value="{{ rating }}" href="{{ url_for('set_status', book_id= book.id, status= 'read', next_url=current_url, rating=rating) }}">{{ rating }}</a>
+                                                    {% endfor %}
+                                                </div>
                                             </div>
                                         {% endif %}
                                         {% if book.id not in book_status %}
@@ -137,6 +139,33 @@
             searchInput.value = ''
         })
     
+        const allStars = document.querySelectorAll('.star-rating')
+        allStars.forEach((star) => {
+            star.addEventListener('mouseover', (event) => {
+                const ratingValue = star.dataset.ratingValue
+                const bookStars = star.closest('.star-rating-wrapper').querySelectorAll('.star-rating')
+
+                bookStars.forEach((bookStar) => {
+                    if (bookStar.dataset.ratingValue <= ratingValue) {
+                        bookStar.classList.add('highlighted')
+                    } else {
+                        bookStar.classList.remove('highlighted')
+                    }
+                })
+                
+            })
+        })
+
+        const starParentDivs = document.querySelectorAll('.star-rating-wrapper')
+        starParentDivs.forEach((div) => {
+            div.addEventListener('mouseout', (event) => {
+                console.log(event.target)
+                const starsWithin = div.querySelectorAll('.star-rating')
+                starsWithin.forEach((star) => {
+                    star.classList.remove('highlighted')
+                })
+            })
+        })
     </script>
 
 {% endblock %}
