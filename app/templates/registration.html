@@ -2,44 +2,46 @@
 {% block content %}
     <div class="main">
         <div class="centering">
-            <div class="form-style">
-                <h1>
-                    Create an account
-                </h1>
-                <form action="{{ url_for('register') }}" method="POST">
-                    {{ form.hidden_tag() }}
-                    <div class="form-section">
-                        <div class="form-label">
-                            {{ form.username.label }}
+            <div class="form-darker-layer">
+                <div class="form-style">
+                    <h1>
+                        Create an account
+                    </h1>
+                    <form action="{{ url_for('register') }}" method="POST">
+                        {{ form.hidden_tag() }}
+                        <div class="form-section">
+                            <div class="form-label">
+                                {{ form.username.label }}
+                            </div>
+                            {{ form.username(class="form-box") }}
+                            {% for error in form.username.errors %}
+                                <p class="error">
+                                    {{ error }}
+                                </p>
+                                {% endfor %}
                         </div>
-                        {{ form.username(class="form-box") }}
-                        {% for error in form.username.errors %}
+                        <div class="form-section">
+                            <div class="form-label">
+                                {{ form.password.label }}
+                            </div>
+                            {{ form.password(class="form-box") }}
+                            {% for error in form.username.errors %}
                             <p class="error">
                                 {{ error }}
                             </p>
                             {% endfor %}
-                    </div>
-                    <div class="form-section">
-                        <div class="form-label">
-                            {{ form.password.label }}
                         </div>
-                        {{ form.password(class="form-box") }}
-                        {% for error in form.username.errors %}
-                        <p class="error">
-                            {{ error }}
-                        </p>
-                        {% endfor %}
-                    </div>
-                    <div class="form-section">
-                        <div class="form-label">
-                            {{ form.password2.label }}
+                        <div class="form-section">
+                            <div class="form-label">
+                                {{ form.password2.label }}
+                            </div>
+                            {{ form.password2(class="form-box") }}
                         </div>
-                        {{ form.password2(class="form-box") }}
-                    </div>
-                    <div class="form-section">
-                        {{ form.submit(class='button') }}
-                    </div>
-                </form>
+                        <div class="form-section">
+                            {{ form.submit(class='button') }}
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

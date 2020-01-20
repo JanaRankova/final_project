@@ -4,9 +4,11 @@
         <h1>
             List of All Books in Our Database
         </h1>
-        <input id="search-box" type="text" placeholder='Type to search'>
-        <button id="search-clear" class="hidden" type="button">&times;</button>
-        <p id="search-nores" class="hidden">No results.</p>
+        <div class="search-wrapper">
+            <input id="search-box" type="text" placeholder='Type to search'>
+            <button id="search-clear" class="hidden" type="button">&times;</button>
+            <p id="search-nores" class="hidden">No results.</p>
+        </div>
         <div>
             <ul>
                 {% for book in all_books %}
@@ -44,7 +46,7 @@
                                         {% if book.id not in book_status %}
                                             <div>
                                                 Status:
-                                                <a href="{{ url_for('set_status', book_id= book.id, status= 'reading', next_url=current_url) }}">Add to currently reading</a>
+                                                <a href="{{ url_for('set_status', book_id= book.id, status= 'reading', next_url=current_url) }}">Start reading!</a>
                                             </div>
                                         {% endif %}
                                     </div>

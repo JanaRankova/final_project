@@ -2,8 +2,12 @@
 const handleEvent = (element, eventType, selector, handler) => {
     element.addEventListener(eventType, (event) => {
         const target = event.target.closest(selector)
-        if (target && element.contains(target)) {
-            handler(event)
+        if (event.target && event.target.closest) {
+            const target = event.target.closest(selector)
+
+            if (target && element.contains(target)) {
+                handler(event)
+            }
         }
     })
 }
@@ -11,10 +15,10 @@ const handleEvent = (element, eventType, selector, handler) => {
 const handleFlashButtonClick = (event => {
     const {target} = event
     const flashed = target.closest('.flashmessage')
-    flashed.classList.add('dissmised')
+    flashed.classList.add('dismissed')
 })
 
-handleEvent(document, 'click', '.flashmessage .dissmiss', handleFlashButtonClick)
+handleEvent(document, 'click', '.flashmessage .dismiss', handleFlashButtonClick)
 
 
 handleEvent(document, 'mouseover', '.star-rating', (event) => {
@@ -33,10 +37,13 @@ handleEvent(document, 'mouseover', '.star-rating', (event) => {
 })
 
 
-handleEvent(document, 'mouseout', '.star-rating-wrapper', (event) => {
-    const starsWithin = event.target.querySelectorAll('.star-rating')
-    starsWithin.forEach((star) => {
-        star.classList.remove('highlighted')
+const starRatingWrappers = document.querySelectorAll('.star-rating-wrapper')
+starRatingWrappers.forEach((starRatingWrapper) => {
+    handleEvent(starRatingWrapper, 'mouseleave', '.star-rating-wrapper', (event) => {
+        const starsWithin = event.target.querySelectorAll('.star-rating')
+        starsWithin.forEach((star) => {
+            star.classList.remove('highlighted')
+        })
     })
 })
 

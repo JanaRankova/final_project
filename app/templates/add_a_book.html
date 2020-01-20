@@ -2,48 +2,50 @@
 {% block content %}
     <div class="main">
         <div class="centering">
-            <div class="form-style">
-                <h1>Add a new book</h1>
-                <form action="{{ url_for('add_a_book') }}" method="POST" enctype="multipart/form-data">
-                    {{ form.hidden_tag() }}
-                    <div class="form-section">
-                        <div class="form-label">
-                            {{ form.name.label }}
+            <div class="form-darker-layer">
+                <div class="form-style">
+                    <h1>Add a new book</h1>
+                    <form action="{{ url_for('add_a_book') }}" method="POST" enctype="multipart/form-data">
+                        {{ form.hidden_tag() }}
+                        <div class="form-section">
+                            <div class="form-label">
+                                {{ form.name.label }}
+                            </div>
+                            {{ form.name(class="form-box") }}
+                            {% for error in form.name.errors %}
+                            <p class="error">
+                                {{ error }}
+                            </p>
+                            {% endfor %}
                         </div>
-                        {{ form.name(class="form-box") }}
-                        {% for error in form.name.errors %}
-                        <p class="error">
-                            {{ error }}
-                        </p>
-                        {% endfor %}
-                    </div>
-                    <div class="form-section">
-                        <div class="form-label">
-                            {{ form.author.label }}
+                        <div class="form-section">
+                            <div class="form-label">
+                                {{ form.author.label }}
+                            </div>
+                            {{ form.author(class="form-box") }}
+                            {% for error in form.author.errors %}
+                            <p class="error">
+                                {{ error }}
+                            </p>
+                            {% endfor %}
                         </div>
-                        {{ form.author(class="form-box") }}
-                        {% for error in form.author.errors %}
-                        <p class="error">
-                            {{ error }}
-                        </p>
-                        {% endfor %}
-                    </div>
-                    <div class="form-section">
-                        <div class="form-label">
-                            {{ form.synopsis.label }}
+                        <div class="form-section">
+                            <div class="form-label">
+                                {{ form.synopsis.label }}
+                            </div>
+                            {{ form.synopsis(class="form-box", id="synopsis-box") }}
                         </div>
-                        {{ form.synopsis(class="form-box") }}
-                    </div>
-                    <div class="form-section">
-                        <div class="form-label">
-                            {{ form.cover.label }}
+                        <div class="form-section">
+                            <div class="form-label">
+                                {{ form.cover.label }}
+                            </div>
+                            {{ form.cover }}
                         </div>
-                        {{ form.cover }}
-                    </div>
-                    <div class="form-section">
-                        {{ form.submit(class='button') }}
-                    </div>
-                </form>
+                        <div class="form-section">
+                            {{ form.submit(class='button') }}
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

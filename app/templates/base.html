@@ -17,7 +17,7 @@
         {% for message in get_flashed_messages() %}
         <p class="flashmessage">
             {{ message }}
-            <button class="dissmiss">x</button>
+            <button class="dismiss">x</button>
         </p>
         {% endfor %}
     </div>
@@ -37,7 +37,7 @@
         <header class="header">
             {% if current_user.is_authenticated %}
             {{ current_user.username }}
-            <a href="{{ url_for('logout') }}">Sign out</a>
+            <a id="header-anchor" href="{{ url_for('logout') }}">Sign out</a>
             {% endif %}
         </header>
         {% block content %}
