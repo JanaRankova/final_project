@@ -126,6 +126,8 @@ footer {
     width: 30px;
     height: 30px;
     font-size: large;
+    line-height: 1;
+    text-align: center;
 }
 
 #search-nores {
@@ -149,6 +151,13 @@ div.bookname {
 }
 div.author {
     font-style: italic;
+}
+
+#start-reading {
+    background-color: #2b7a78;
+    color: #feffff;
+    padding: 5px;
+    border: 1px solid #195351;
 }
 
 h1{
@@ -222,6 +231,15 @@ img {
     object-fit: contain;
     padding: 10px;
     display: block;
+}
+
+button,
+input {
+    outline: none !important;
+}
+
+button {
+    cursor: pointer;
 }
 
 .centering {

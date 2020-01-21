@@ -32,7 +32,11 @@
                                     <div class="changeable">
                                         {% if book.id in book_status %}
                                             <div>
-                                                Status: {{ book_status[book.id]['book_status'] }}
+                                                {% if book_status[book.id]['book_status'] == 'read' %}
+                                                    You have already read this.
+                                                {% else %}
+                                                    You are currently reading this.
+                                                {% endif %}
                                             </div>
                                             <div>
                                                 Rating:
@@ -45,8 +49,7 @@
                                         {% endif %}
                                         {% if book.id not in book_status %}
                                             <div>
-                                                Status:
-                                                <a href="{{ url_for('set_status', book_id= book.id, status= 'reading', next_url=current_url) }}">Start reading!</a>
+                                                <a id=start-reading href="{{ url_for('set_status', book_id= book.id, status= 'reading', next_url=current_url) }}">Start reading!</a>
                                             </div>
                                         {% endif %}
                                     </div>
@@ -80,7 +83,7 @@
         <div>
             <br>
             <p>
-                Is there a book you would like to read but it's not on this list? Easy! You can add it <a href="{{ url_for('add_a_book') }}">here</a>.
+                Is there a book you would like to read and it's not on this list? Easy! You can add it <a href="{{ url_for('add_a_book') }}">here</a>.
             </p>
             <br>
         </div>
