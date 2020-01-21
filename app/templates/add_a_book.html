@@ -1,47 +1,47 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div class="main">
-        <div class="centering">
+    <div class="content">
+        <div class="form-wrapper">
             <div class="form-darker-layer">
-                <div class="form-style">
+                <div class="form-inner-layer">
                     <h1>Add a new book</h1>
                     <form action="{{ url_for('add_a_book') }}" method="POST" enctype="multipart/form-data">
                         {{ form.hidden_tag() }}
-                        <div class="form-section">
+                        <div class="form-input-pair">
                             <div class="form-label">
                                 {{ form.name.label }}
                             </div>
-                            {{ form.name(class="form-box") }}
+                            {{ form.name(class="form-input") }}
                             {% for error in form.name.errors %}
                             <p class="error">
                                 {{ error }}
                             </p>
                             {% endfor %}
                         </div>
-                        <div class="form-section">
+                        <div class="form-input-pair">
                             <div class="form-label">
                                 {{ form.author.label }}
                             </div>
-                            {{ form.author(class="form-box") }}
+                            {{ form.author(class="form-input") }}
                             {% for error in form.author.errors %}
                             <p class="error">
                                 {{ error }}
                             </p>
                             {% endfor %}
                         </div>
-                        <div class="form-section">
+                        <div class="form-input-pair">
                             <div class="form-label">
                                 {{ form.synopsis.label }}
                             </div>
-                            {{ form.synopsis(class="form-box", id="synopsis-box") }}
+                            {{ form.synopsis(class="form-input", id="synopsis-box") }}
                         </div>
-                        <div class="form-section">
+                        <div class="form-input-pair">
                             <div class="form-label">
                                 {{ form.cover.label }}
                             </div>
                             {{ form.cover }}
                         </div>
-                        <div class="form-section">
+                        <div class="form-input-pair">
                             {{ form.submit(class='button') }}
                         </div>
                     </form>

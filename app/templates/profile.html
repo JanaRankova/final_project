@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="main">
+    <div class="content">
         <h1>Hello, {{ current_user.username }}!</h1>
         <h2>Books you are currenly reading:</h2>
         <div>
@@ -12,8 +12,8 @@
             <ul>
                 {% for book in reading_books %}
                     <li id="book-{{ book.book_id }}">
-                        <div class="coverwrapper">
-                            <div class="sidetocover">
+                        <div class="cover-wrapper">
+                            <div class="book-content-wrapper">
                                 <div class="textcontent">
                                     <div class="bookname">
                                         {{ book.book.name }}
@@ -67,8 +67,8 @@
             <ul>
                 {% for book in read_books %}
                     <li id="book-{{ book.book_id }}">
-                        <div class="coverwrapper">
-                            <div class="sidetocover">
+                        <div class="cover-wrapper">
+                            <div class="book-content-wrapper">
                                 <div class="textcontent">
                                     <div class="bookname">
                                         {{ book.book.name }}

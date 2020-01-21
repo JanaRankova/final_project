@@ -1,43 +1,43 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div class="main">
-        <div class="centering">
+    <div class="content">
+        <div class="form-wrapper">
             <div class="form-darker-layer">
-                <div class="form-style">
+                <div class="form-inner-layer">
                     <h1>Login</h1>
                     <form action="{{ url_for('login') }}" method="POST">
                         {{ form.hidden_tag() }}
-                        <div class="form-section">
+                        <div class="form-input-pair">
                             <div class="form-label">
                                 {{ form.username.label }}
                             </div>
-                            {{ form.username(class="form-box") }}
+                            {{ form.username(class="form-input") }}
                             {% for error in form.username.errors %}
                                 <p class="error">
                                     {{ error }}
                                 </p>
                             {% endfor %}
                         </div>
-                        <div class="form-section">
+                        <div class="form-input-pair">
                             <div class="form-label">
                                 {{ form.password.label }}
                             </div>
-                            {{ form.password(class="form-box") }}
+                            {{ form.password(class="form-input") }}
                             {% for error in form.password.errors %}
                                 <p class="error">
                                     {{ error }}
                                 </p>
                             {% endfor %}
                         </div>
-                        <div class="form-section">
+                        <div class="form-input-pair">
                             {{ form.remember_me.label }}
                             {{ form.remember_me }}
                         </div>
-                        <div class="form-section">
+                        <div class="form-input-pair">
                             {{ form.submit(class='button') }}
                         </div>
                     </form>
-                    <div class="form-section">
+                    <div class="form-input-pair">
                             <a href="{{ url_for('register') }}">Create account</a>
                     </div>
                 </div>

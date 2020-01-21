@@ -22,19 +22,19 @@
         {% endfor %}
     </div>
     
-    <div class="wrapper">
-        <div class="topbar">
-            <a class="home_button {% if current_url=='index' %} current {% endif %}" href="{{ url_for('index') }}">
+    <div class="content-wrapper">
+        <div class="navbar">
+            <a class="home-button {% if current_url=='index' %} current {% endif %}" href="{{ url_for('index') }}">
                 <div>
                     <h3>
                         BookEnthusiast:
                     </h3>
                 </div>
             </a>
-            <a class ="topbar_link {% if current_url=='list_of_books' %} current {% endif %}" href="{{ url_for('list_of_books') }}">Books</a>
-            <a class="topbar_link {% if current_url=='profile' %} current {% endif %}" href="{{ url_for('profile') }}">Profile</a>
+            <a class ="navbar-link {% if current_url=='list_of_books' %} current {% endif %}" href="{{ url_for('list_of_books') }}">Books</a>
+            <a class="navbar-link {% if current_url=='profile' %} current {% endif %}" href="{{ url_for('profile') }}">Profile</a>
         </div>
-        <header class="header">
+        <header class="nav-header">
             {% if current_user.is_authenticated %}
             {{ current_user.username }}
             <a id="header-anchor" href="{{ url_for('logout') }}">Sign out</a>

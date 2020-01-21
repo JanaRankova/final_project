@@ -1,43 +1,43 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div class="main">
-        <div class="centering">
+    <div class="content">
+        <div class="form-wrapper">
             <div class="form-darker-layer">
-                <div class="form-style">
+                <div class="form-inner-layer">
                     <h1>
                         Create an account
                     </h1>
                     <form action="{{ url_for('register') }}" method="POST">
                         {{ form.hidden_tag() }}
-                        <div class="form-section">
+                        <div class="form-input-pair">
                             <div class="form-label">
                                 {{ form.username.label }}
                             </div>
-                            {{ form.username(class="form-box") }}
+                            {{ form.username(class="form-input") }}
                             {% for error in form.username.errors %}
                                 <p class="error">
                                     {{ error }}
                                 </p>
                                 {% endfor %}
                         </div>
-                        <div class="form-section">
+                        <div class="form-input-pair">
                             <div class="form-label">
                                 {{ form.password.label }}
                             </div>
-                            {{ form.password(class="form-box") }}
+                            {{ form.password(class="form-input") }}
                             {% for error in form.username.errors %}
                             <p class="error">
                                 {{ error }}
                             </p>
                             {% endfor %}
                         </div>
-                        <div class="form-section">
+                        <div class="form-input-pair">
                             <div class="form-label">
                                 {{ form.password2.label }}
                             </div>
-                            {{ form.password2(class="form-box") }}
+                            {{ form.password2(class="form-input") }}
                         </div>
-                        <div class="form-section">
+                        <div class="form-input-pair">
                             {{ form.submit(class='button') }}
                         </div>
                     </form>

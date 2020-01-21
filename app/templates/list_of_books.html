@@ -1,20 +1,20 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div class="main">
+    <div class="content">
         <h1>
             List of All Books in Our Database
         </h1>
         <div class="search-wrapper">
             <input id="search-box" type="text" placeholder='Type to search'>
             <button id="search-clear" class="hidden" type="button">&times;</button>
-            <p id="search-nores" class="hidden">No results.</p>
+            <p id="search-noresult" class="hidden">No results.</p>
         </div>
         <div>
             <ul>
                 {% for book in all_books %}
                     <li id="book-{{ book.id }}" class="book-search-target" data-name="{{ book.name }}" data-author="{{ book.author.name }}">
-                        <div class="coverwrapper">
-                            <div class="sidetocover">
+                        <div class="cover-wrapper">
+                            <div class="book-content-wrapper">
                                 <div class="textcontent">
                                     <div class="bookname">
                                         {{ book.name }}
